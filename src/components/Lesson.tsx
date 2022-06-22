@@ -18,7 +18,7 @@ export function Lesson({ title, slug, availableAt, type }: LessonProps) {
 
   return (
     <a href={slug}>
-      <span className="text-gray-300 first-letter:uppercase">
+      <span className="text-gray-300 first-letter:uppercase block">
         {availableDateFormatted}
       </span>
 

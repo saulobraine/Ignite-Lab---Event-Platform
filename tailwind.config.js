@@ -5,6 +5,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage: {
+        blur: 'url(/src/assets/blur-background.png)'
+      },
       fontFamily: {
         sans: 'Poppins, sans-serif'
       },
@@ -31,7 +34,18 @@ module.exports = {
           600: '#29292E',
           700: '#121214',
           900: '#09090A'
+        },
+      },
+      keyframes: {
+        arrowFadeInLeft: {
+          '50%, 100%': {
+            left: '-7.5px',
+            opacity: '1'
+          }
         }
+      },
+      animation: {
+        arrowFadeInLeft: 'arrowFadeInLeft .75s ease-in forwards'
       }
     },
   },

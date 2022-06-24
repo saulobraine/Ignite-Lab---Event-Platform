@@ -79,7 +79,7 @@ export function Subcribe() {
 
       </div>
 
-      <img src="/src/assets/code-mockup.png" alt="Mockup" className="mt-10" />
+      <img src="/assets/code-mockup.png" alt="Mockup" className="mt-10" />
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { CheckCircle, Lock } from 'phosphor-react';
 import { isPast, format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
@@ -8,9 +9,11 @@ interface LessonProps {
   slug: string;
   availableAt: Date;
   type: 'live' | 'class';
+  open?: boolean;
+  setIsOpen?: Dispatch<SetStateAction<boolean>>;
 }
 
-export function Lesson({ title, slug, availableAt, type }: LessonProps) {
+export function Lesson({ title, slug, availableAt, type, open, setIsOpen }: LessonProps) {
 
   const { slug: currentSlug } = useParams<{ slug: string }>();
 
@@ -22,7 +25,16 @@ export function Lesson({ title, slug, availableAt, type }: LessonProps) {
   const isActiveLesson = slug === currentSlug;
 
   return (
-    <Link to={`${isLessonAvailable ? `/event/lesson/${slug}` : ''}`} className={`group ${isLessonAvailable ? '' : 'cursor-not-allowed opacity-30'}`}>
+    <Link
+      to={`${isLessonAvailable ? `/event/lesson/${slug}` : ''}`}
+      className={`group ${isLessonAvailable ? '' : 'cursor-not-allowed opacity-30'}`}
+      onClick={() => {
+        setIsOpen && (
+          setIsOpen(!open)
+        )
+        window.scrollTo(0, 0)
+      }}
+    >
       <span className="text-gray-300 first-letter:uppercase block">
         {availableDateFormatted}
       </span>

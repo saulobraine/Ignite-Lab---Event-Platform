@@ -1,4 +1,5 @@
-import { FormEvent, useState } from "react";
+import { useQuery } from "@apollo/client";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Logo } from "../components/Logo";
 import { useCreateSubscriberMutation } from "../graphql/generated";
@@ -10,10 +11,31 @@ export function Subcribe() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
-  const [createSubscriber, { loading }] = useCreateSubscriberMutation();
+  const [returnValidation, setReturnValidation] = useState(true);
+  const [validationMessage, setValidationMessage] = useState('');
+
+  const [createSubscriber, { loading, error, data }] = useCreateSubscriberMutation();
+
+  function emailIsValid(email: string) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+  }
 
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
+
+    if (name.length === 0) {
+      setValidationMessage('Por gentileza, preencha o seu nome.');
+      setReturnValidation(false);
+
+      return;
+    }
+
+    if (email.length === 0 || !emailIsValid(email)) {
+      setValidationMessage('Por gentileza, preencha um e-mail válido.');
+      setReturnValidation(false);
+
+      return;
+    }
 
     await createSubscriber({
       variables: {
@@ -21,9 +43,13 @@ export function Subcribe() {
         email
       }
     });
-
-    navigate('/event');
   }
+
+  useEffect(() => {
+    if (error) {
+      navigate('/event');
+    }
+  }, [error]);
 
   return (
     <div className="min-h-screen lg:max-h-screen lg:overflow-hidden bg-blur bg-cover bg-no-repeat flex lg:flex-col items-center">
@@ -58,6 +84,15 @@ export function Subcribe() {
                 placeholder="Digite seu e-mail"
                 onChange={event => setEmail(event.target.value)}
               />
+
+              <div
+                className={`
+                text-red-400 p-4 text-center
+                ${!returnValidation ? 'visible opacity-100' : 'invisible opacity-0'}
+                `}
+              >
+                {validationMessage}
+              </div>
 
               <button
                 className="mt-4 bg-green-500 uppercase py-4 rounded font-bold text-sm hover:bg-green-700 transition-colors disabled:opacity-50"

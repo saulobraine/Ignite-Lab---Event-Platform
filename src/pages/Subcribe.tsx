@@ -27,10 +27,10 @@ export function Subcribe() {
 
   return (
     <div className="min-h-screen lg:max-h-screen lg:overflow-hidden bg-blur bg-cover bg-no-repeat flex lg:flex-col items-center">
-      <div className="bg-react bg-[650px] bg-[center_1em] bg-no-repeat">
-        <div className="w-full max-w-[1100px] flex flex-col lg:flex-row items-center lg:justify-between mt-20 px-8 gap-10 lg:gap-20">
+      <div className="bg-react bg-contain lg:bg-[length:650px] bg-[center_1em] bg-no-repeat">
+        <div className="lg:w-full lg:max-w-[1100px] flex flex-col lg:flex-row items-center lg:justify-between mt-20 px-8 gap-10 lg:gap-20">
 
-          <div className="max-w-[640px]">
+          <div className="lg:max-w-[640px]">
             <Logo />
 
             <h1 className="mt-8 text-[2rem] leading-tight">
@@ -42,18 +42,18 @@ export function Subcribe() {
             </p>
           </div>
 
-          <div className="p-8 bg-gray-700 border border-gray-500 rounded">
+          <div className="max-w-full p-8 bg-gray-700 border border-gray-500 rounded">
             <strong className="text-xl mb-6 block">Inscreva-se gratuitamente</strong>
 
-            <form action="" className="flex flex-col gap-2 w-full">
+            <form className="flex flex-col gap-2 w-full">
               <input
-                className="bg-gray-900 rounded px-5 h-14"
+                className="bg-gray-900 rounded px-5 h-14 w-full"
                 type="text"
                 placeholder="Seu nome completo"
                 onChange={event => setName(event.target.value)}
               />
               <input
-                className="bg-gray-900 rounded px-5 h-14"
+                className="bg-gray-900 rounded px-5 h-14 w-full"
                 type="text"
                 placeholder="Digite seu e-mail"
                 onChange={event => setEmail(event.target.value)}
@@ -72,7 +72,7 @@ export function Subcribe() {
 
         </div>
 
-        <img src="/assets/code-mockup.png" alt="Mockup" className="mt-5 w-full" />
+        <img src="/assets/code-mockup.png" alt="Mockup" className="mt-5 max-w-full" />
       </div>
     </div>
   )

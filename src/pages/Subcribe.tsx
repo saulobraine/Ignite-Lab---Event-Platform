@@ -43,6 +43,8 @@ export function Subcribe() {
         email
       }
     });
+
+    navigate('/event');
   }
 
   useEffect(() => {
